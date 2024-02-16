@@ -1,0 +1,7 @@
+# Nextflow
+.nextflow*
+work/
+results/
+
+# Quarto
+.quarto/

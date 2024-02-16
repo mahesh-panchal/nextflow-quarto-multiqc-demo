@@ -1,0 +1,9 @@
+---
+title: Data Quality Report
+date: today
+format: html
+---
+
+## FASTQC
+
+These are the fastqc reports for the samples.
