@@ -8,7 +8,7 @@ process QUARTO {
 
     script:
     def args = task.ext.args ?: ''
-    def qparams = pfiles ? pfiles.collect{ "" }.join(" ") : ''
+    def qparams = pfiles ? "-P fastqc:quarto" : ''
     """
     quarto \\
         render \\

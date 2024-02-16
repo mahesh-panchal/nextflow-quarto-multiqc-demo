@@ -2,8 +2,21 @@
 title: Data Quality Report
 date: today
 format: html
+
+params:
+    fastqc: 'fastqc'
 ---
 
 ## FASTQC
 
-These are the fastqc reports for the samples.
+These are ids for the reports of the samples.
+
+```{r}
+#| warning: false
+#| echo: false
+
+library(tidyverse)
+fqc_files <- list.files( path = params$fastqc, pattern = "*.html" )
+str_split_i( fqc_files, "_", 1 ) %>% 
+    str_unique()
+```
