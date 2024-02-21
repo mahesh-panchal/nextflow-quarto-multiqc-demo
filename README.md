@@ -1,2 +1,4 @@
-# nextflow-fastqc-quarto
-Using Quarto within Nextflow to make a report
+# Nextflow Quarto MultiQC workflow
+
+Proof of concept to include Quarto documents as sections in MultiQC, wrapped up in
+Nextflow.
