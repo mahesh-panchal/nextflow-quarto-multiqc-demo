@@ -21,6 +21,6 @@ process QUARTO {
     """
 
     output:
-    path "*.html"       , emit: report
+    path "*.html"       , emit: html
     path "versions.yml" , emit: versions
 }

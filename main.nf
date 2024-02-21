@@ -19,10 +19,11 @@ workflow {
 
     ch_quarto_files = Channel.empty().mix(*GENOMESCOPE2.out[0..3]).map { it[1] }
     QUARTO ( 
-        file( params.report_template, checkIfExists: true ),
+        file( params.gs2_panel_qmd, checkIfExists: true ),
         ch_quarto_files.collect()
     )
     mqc_files = FASTQC.out.zip.map{ it[1] }
+        .mix( QUARTO.out.html )
     MULTIQC( mqc_files.collect(), [], [], [] )
 
 }

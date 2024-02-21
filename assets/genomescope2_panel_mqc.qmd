@@ -7,8 +7,6 @@ params:
     image_path : '.'
 ---
 
-## GenomeScope2
-
 ```{r}
 #| include: false
 
