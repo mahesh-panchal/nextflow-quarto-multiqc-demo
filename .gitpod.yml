@@ -7,6 +7,8 @@ tasks:
       sudo dpkg -i quarto-linux-amd64.deb
       quarto check all
       rm quarto-linux-amd64.deb
+  - name: Install MultiQC
+    command: conda install multiqc -y
 
 vscode:
   extensions:
