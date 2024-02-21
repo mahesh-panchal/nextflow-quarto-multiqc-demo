@@ -1,19 +1,18 @@
 process QUARTO {
     input:
     path notebook
-    path pfiles, stageAs: 'quarto/*', arity: '1..*'
+    path pfiles, stageAs: 'images/*', arity: '1..*'
 
     when:
     task.ext.when == null || task.ext.when
 
     script:
     def args = task.ext.args ?: ''
-    def qparams = pfiles ? "-P fastqc:quarto" : ''
     """
     quarto \\
         render \\
         $notebook \\
-        $qparams
+        -P image_path:images
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

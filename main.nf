@@ -17,7 +17,7 @@ workflow {
     MERYL_HISTOGRAM ( MERYL_UNIONSUM.out.meryl_db )
     GENOMESCOPE2 ( MERYL_HISTOGRAM.out.hist )
 
-    ch_quarto_files = FASTQC.out.html.map { it[1] }
+    ch_quarto_files = Channel.empty().mix(*GENOMESCOPE2.out[0..3]).map { it[1] }
     QUARTO ( 
         file( params.report_template, checkIfExists: true ),
         ch_quarto_files.collect()
