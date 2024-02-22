@@ -18,16 +18,17 @@ library(tidyverse)
 #| output: asis
 #| column: screen
 
-gs2_files <- list.files( path = params$image_path, pattern = "*.png" )
-samples <- str_split_i( gs2_files, "_", 1 ) %>% str_unique()
-for ( sample in samples ){
-    tabfiles <- gs2_files[startsWith(gs2_files,sample)]
-    cat('### ',sample,'\n\n')
+gs2_files <- list.files(path = params$image_path, pattern = "*.png")
+samples <- str_split_i(gs2_files, "_", 1) %>% 
+    str_unique()
+for(sample in samples){
+    tab_files <- gs2_files[startsWith(gs2_files, sample)]
+    cat('### ', sample, '\n\n')
     cat(':::: {.panel-tabset}\n\n')
-    for (plot_type in c('linear','log','transformed_linear','transformed_log')) {
-        cat('## ',plot_type,'\n\n')
-        plot <- tabfiles[startsWith(tabfiles,paste(sample,"_",plot_type,sep=""))]
-        cat('![GenomeScope2 ',plot_type,' plot](',paste(params$image_path,'/',plot,sep=""),')\n\n')
+    for(plot_type in c('linear', 'log', 'transformed_linear', 'transformed_log')){
+        cat('## ', plot_type, '\n\n')
+        plot <- tab_files[startsWith(tab_files, paste(sample, "_", plot_type, sep = ""))]
+        cat('![GenomeScope2 ', plot_type, ' plot](', paste(params$image_path, '/', plot, sep = ""), ')\n\n')
     }
     cat('::::\n\n')
 }
