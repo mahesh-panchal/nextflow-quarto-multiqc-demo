@@ -16,6 +16,7 @@ library(tidyverse)
 ```{r}
 #| echo: false
 #| output: asis
+#| column: screen
 
 gs2_files <- list.files( path = params$image_path, pattern = "*.png" )
 samples <- str_split_i( gs2_files, "_", 1 ) %>% str_unique()
