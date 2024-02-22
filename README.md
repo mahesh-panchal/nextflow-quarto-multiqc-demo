@@ -12,3 +12,8 @@ sets of images are not really supported well. Quarto is a flexible publishing to
 that lets you use most languages to process inputs and lay them out as you want.
 As a result, you can do things like create tabbed panels per sample and then include
 this html as custom content in MultiQC.
+
+> [!NOTE]  
+> This repository was initally used to demonstrate setting the parameter section of
+> a Quarto document in Nextflow. It's purpose has since changed and so the repository
+> name no longer quite matches it's current purpose.
