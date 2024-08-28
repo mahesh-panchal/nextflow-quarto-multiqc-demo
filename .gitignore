@@ -5,3 +5,11 @@ results/
 
 # Quarto
 .quarto/
+
+# nf-test
+.nf-test.log
+.nf-test/
+
+# pixi environments
+.pixi
+*.egg-info
