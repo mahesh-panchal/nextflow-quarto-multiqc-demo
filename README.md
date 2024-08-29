@@ -1,7 +1,15 @@
 # Nextflow Quarto MultiQC workflow
 
-Proof of concept to include Quarto documents as sections in MultiQC, wrapped up in
-Nextflow.
+Making custom Quarto documents with Multiqc components from Nextflow output (it could
+be outputs from anything, e.g. scripts or tools, or other workflow managers).
+
+> [!NOTE]  
+> Before MultiQC 1.22, one needed to create custom panels and include them into
+> MultiQC which is what v1.0 of this repository demonstrates. This updated version
+> explores using MultiQC as a python library in a Quarto document.
+
+> [!IMPORTANT]
+> This is work in progress.
 
 ## Background
 
@@ -12,8 +20,3 @@ sets of images are not really supported well. Quarto is a flexible publishing to
 that lets you use most languages to process inputs and lay them out as you want.
 As a result, you can do things like create tabbed panels per sample and then include
 this html as custom content in MultiQC.
-
-> [!NOTE]  
-> This repository was initally used to demonstrate setting the parameter section of
-> a Quarto document in Nextflow. It's purpose has since changed and so the repository
-> name no longer quite matches it's current purpose.
