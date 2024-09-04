@@ -6,6 +6,10 @@ results/
 # Quarto
 .quarto/
 **/.gitignore
+*_files/
+*.quarto_ipynb
+*.html
+*.ipynb
 
 # nf-test
 .nf-test.log
