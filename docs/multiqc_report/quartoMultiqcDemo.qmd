@@ -6,15 +6,50 @@ title: "Quarto MultiQC demo"
 
 Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
 
+## Setup
+
+```{python}
+#| tags: [parameters]
+
+log_path = 'results'
+```
+
+<details>
+<summary>MultiQC Log parse</summary>
 ```{python}
 #| output: true
-#| echo: false  
 import multiqc
-multiqc.parse_logs('results')
-multiqc.write_report(
-    force=True,
-    output_dir="quarto_multiqc_report",
-    title="Quarto MultiQC Demo",
-    filename="stdout",
-)
+from pprint import pprint
+multiqc.reset() # Important for Quarto preview
+# Then load a custom config using multiqc.load_config("multiqc_config_illumina.yml")
+# The path appears to be relative to the current notebook location.
+multiqc.parse_logs(log_path)
+```
+</details>
+
+## FastQC
+
+```{python}
+# pprint pretty prints the dictionary
+pprint(multiqc.list_plots())
+```
+
+### Sequence counts
+
+```{python}
+#| echo: false
+fastqc_counts_plot = multiqc.get_plot("fastqc",'Sequence Counts')
+fastqc_counts_plot.show()
+```
+
+```{python}
+#| echo: false
+fastqc_seqgc_plot = multiqc.get_plot("fastqc",'Per Sequence GC Content')
+fastqc_seqgc_plot.show()
+```
+
+## Versions
+
+```{python}
+print(multiqc.__version__)
 ```
