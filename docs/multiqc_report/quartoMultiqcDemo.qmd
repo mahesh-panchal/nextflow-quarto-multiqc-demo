@@ -1,5 +1,9 @@
 ---
 title: "Quarto MultiQC demo"
+
+format:
+  html:
+    embed-resources: true
 ---
 
 ## Quarto
@@ -9,6 +13,7 @@ Quarto enables you to weave together content and executable code into a finished
 ## Setup
 
 ```{python}
+#| echo: false
 #| tags: [parameters]
 
 log_path = 'results'
@@ -46,6 +51,34 @@ fastqc_counts_plot.show()
 #| echo: false
 fastqc_seqgc_plot = multiqc.get_plot("fastqc",'Per Sequence GC Content')
 fastqc_seqgc_plot.show()
+```
+
+## Genomescope
+
+Render Genomescope
+```{python}
+#| echo: false
+#| output: asis
+import glob
+
+# Define the glob pattern to find images
+image_pattern = f"{log_path}/genomescope2/*.png"  # Adjust the pattern to match your images
+images = glob.glob(image_pattern)
+
+# Ensure we have exactly 4 images
+if len(images) % 4 != 0:
+    raise ValueError("Exact multiples of 4 images are required.")
+
+# Generate Quarto Markdown for the tabbed panel
+tabs = []
+for i, image in enumerate(images):
+    if i % 4 == 0: 
+        tabs.append("::: {.panel-tabset}")
+    tabs.append(f"## Tab {i+1}\n\n![Image {i+1}](/{image})")
+    if i % 4 == 3: 
+        tabs.append(":::")
+
+print("\n\n".join(tabs))
 ```
 
 ## Versions
