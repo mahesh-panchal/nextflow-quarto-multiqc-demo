@@ -13,3 +13,5 @@ quarto = "quarto render"
 [dependencies]
 quarto = ">=1.5.55,<2"
 nextflow = ">=24.4.4,<25"
+jupyter = ">=1.1.1,<2"
+multiqc = ">=1.24.1,<2"
