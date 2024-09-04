@@ -8,7 +8,6 @@ version = "0.1.0"
 
 [tasks]
 nextflow = {cmd = "nextflow run $SCRIPT -resume", env = { SCRIPT = "main.nf" }}
-quarto = "quarto render"
 
 [dependencies]
 quarto = ">=1.5.55,<2"
