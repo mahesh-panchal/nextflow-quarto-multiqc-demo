@@ -5,6 +5,7 @@ results/
 
 # Quarto
 .quarto/
+**/.gitignore
 
 # nf-test
 .nf-test.log
