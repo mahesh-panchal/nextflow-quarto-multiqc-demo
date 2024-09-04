@@ -1,0 +1,20 @@
+---
+title: "Quarto MultiQC demo"
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+```{python}
+#| output: true
+#| echo: false  
+import multiqc
+multiqc.parse_logs('results')
+multiqc.write_report(
+    force=True,
+    output_dir="quarto_multiqc_report",
+    title="Quarto MultiQC Demo",
+    filename="stdout",
+)
+```
