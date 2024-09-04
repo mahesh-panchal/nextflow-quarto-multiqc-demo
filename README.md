@@ -11,6 +11,15 @@ be outputs from anything, e.g. scripts or tools, or other workflow managers).
 > [!IMPORTANT]
 > This is work in progress.
 
+## Usage
+
+In Gitpod:
+
+```
+pixi run nextflow
+pixi run quarto render docs/multiqc_report/ -P log_path:$PWD/results
+```
+
 ## Background
 
 MultiQC supports a lot of tools, but not all. Since it's designed primarily for
