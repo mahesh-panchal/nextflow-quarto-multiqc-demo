@@ -16,7 +16,7 @@ Quarto enables you to weave together content and executable code into a finished
 #| echo: false
 #| tags: [parameters]
 
-log_path = 'results'
+log_path = 'log_files'
 ```
 
 <details>
@@ -58,14 +58,16 @@ fastqc_seqgc_plot.show()
 Render Genomescope
 ```{python}
 #| echo: false
-#| output: asis
+#| output: true
 import glob
 
-# Define the glob pattern to find images
-image_pattern = f"{log_path}/genomescope2/*.png"  # Adjust the pattern to match your images
-images = glob.glob(image_pattern)
+images = [ img for pattern in ['log_plot', 'linear_plot'] for img in glob.glob(f"{log_path}/*_{pattern}.png") ]
 
-# Ensure we have exactly 4 images
+# Ensure we have multiples of 4 images
+if len(images) == 0:
+    raise ValueError("No files found")
+
+# Ensure we have multiples of 4 images
 if len(images) % 4 != 0:
     raise ValueError("Exact multiples of 4 images are required.")
 
@@ -74,7 +76,7 @@ tabs = []
 for i, image in enumerate(images):
     if i % 4 == 0: 
         tabs.append("::: {.panel-tabset}")
-    tabs.append(f"## Tab {i+1}\n\n![Image {i+1}](/{image})")
+    tabs.append(f"## Tab {i+1}\n\n![Image {i+1}]({image})")
     if i % 4 == 3: 
         tabs.append(":::")
 
