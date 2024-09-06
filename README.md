@@ -10,6 +10,8 @@ be outputs from anything, e.g. scripts or tools, or other workflow managers).
 
 ## Usage
 
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/mahesh-panchal/nextflow-quarto-multiqc-demo)
+
 In Gitpod:
 
 ```bash
