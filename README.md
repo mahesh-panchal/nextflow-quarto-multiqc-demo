@@ -10,15 +10,25 @@ be outputs from anything, e.g. scripts or tools, or other workflow managers).
 
 ## Usage
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/mahesh-panchal/nextflow-quarto-multiqc-demo)
+The Quarto report is generated within a Nextflow process.
 
-In Gitpod:
+### Gitpod
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/mahesh-panchal/nextflow-quarto-multiqc-demo)
 
 ```bash
 pixi run nextflow
 ```
 
-The Quarto report is generated within a Nextflow process.
+### Locally
+
+Have `pixi` and `git` available in your path.
+
+```bash
+git clone https://github.com/mahesh-panchal/nextflow-quarto-multiqc-demo.git
+cd nextflow-quarto-multiqc-demo
+pixi run nextflow
+```
 
 ## Background
 
