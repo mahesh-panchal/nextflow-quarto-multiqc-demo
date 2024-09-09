@@ -10,6 +10,7 @@ process QUARTO_MULTIQC {
     input:
     path notebook
     path log_files, stageAs: 'log_files/*'
+    path 'params.yml'
 
     when:
     task.ext.when == null || task.ext.when
@@ -17,9 +18,12 @@ process QUARTO_MULTIQC {
     script:
     def args = task.ext.args ?: ''
     """
+    # Copy params to meta data
+    cp params.yml _quarto.yml
     quarto \\
         render \\
         $notebook \\
+        --execute-params params.yml \\
         $args
 
     cat <<-END_VERSIONS > versions.yml

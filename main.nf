@@ -18,20 +18,26 @@ workflow {
                 ] 
             ] 
         }
+    log_files = Channel.empty()
 
     // Analysis
-    FASTQC ( ch_input )
-    MERYL_COUNT ( ch_input, params.kmer_size )
-    MERYL_UNIONSUM ( MERYL_COUNT.out.meryl_db, params.kmer_size )
-    MERYL_HISTOGRAM ( MERYL_UNIONSUM.out.meryl_db, params.kmer_size )
-    GENOMESCOPE2 ( MERYL_HISTOGRAM.out.hist )
+    if ( params.run_fastqc ) {
+        FASTQC ( ch_input )
+        log_files = log_files.mix( FASTQC.out.zip )
+    }
+    if ( params.run_genomescope ){
+        MERYL_COUNT ( ch_input, params.kmer_size )
+        MERYL_UNIONSUM ( MERYL_COUNT.out.meryl_db, params.kmer_size )
+        MERYL_HISTOGRAM ( MERYL_UNIONSUM.out.meryl_db, params.kmer_size )
+        GENOMESCOPE2 ( MERYL_HISTOGRAM.out.hist )
+        log_files = log_files.mix( *GENOMESCOPE2.out[0..3] )
+    }
 
+    def run_modules = params.keySet().findAll{ it.startsWith('run_') }
     // Report
-    log_files = FASTQC.out.zip
-        .mix( *GENOMESCOPE2.out[0..3] )
-        .map { it[1] } // take files only
     QUARTO_MULTIQC(
         file( params.quarto_mqc_report, checkIfExists: true ),
-        log_files.collect()
+        log_files.collect{ it[1] },
+        Channel.value(params.subMap(run_modules).collect{ k, v -> "$k: ${v}" }.join('\n')).collectFile(),
     )
 }
