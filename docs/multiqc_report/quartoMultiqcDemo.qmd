@@ -47,6 +47,7 @@ multiqc.parse_logs(log_path)
 What's running:
 
 ```{python}
+#| echo: false
 print(f"FastQC: {run_fastqc} {type(run_fastqc)}")
 print(f"GenomeScope: {run_genomescope} {type(run_genomescope)}")
 ```
