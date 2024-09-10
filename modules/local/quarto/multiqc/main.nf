@@ -18,8 +18,9 @@ process QUARTO_MULTIQC {
     script:
     def args = task.ext.args ?: ''
     """
-    # Copy params to meta data
-    cp params.yml _quarto.yml
+    # Link params to meta data
+    ln -s params.yml _quarto.yml
+    
     quarto \\
         render \\
         $notebook \\

@@ -8,6 +8,16 @@ format:
 
 ## Quarto
 
+This is an example of how to use MultiQC interactively in a report. MultiQC is a great tool for summarising log files of various tools.
+One drawback though is you already need to be familiar with how to interpret the output of those tools in their context. For example,
+FastQC is a bioinformatic tool that analyses sequence data, and produces PASS/FAIL metrics for various analyses. An underlying 
+assumption is that the sequence data is whole genome sequence data, and therefore has certain properties. FastQC, however, can be used
+on other types of sequence data, with the caveat that not all analyses need to pass or fail. This is confusing for those learning the
+field who have never encountered this. 
+
+This is where a Quarto notebook comes in. By using Multiqc as a Python package, one can narrate to the reader how to interpret plots, and which
+analyses to focus on to answer particular questions. We can also use conditional inclusion to display only relevant sections. In this
+way, we make it easier for newcomers to interpret analysis logs, particularly those using production-level workflows like [nf-core](https://nf-co.re/).
 Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
 
 ## Setup
@@ -17,8 +27,8 @@ Quarto enables you to weave together content and executable code into a finished
 #| tags: [parameters]
 
 log_path = 'log_files'
-run_fastqc = 'true'
-run_genomescope = 'true'
+run_fastqc = True
+run_genomescope = True
 ```
 
 <details>
@@ -37,8 +47,8 @@ multiqc.parse_logs(log_path)
 What's running:
 
 ```{python}
-print(bool(run_fastqc))
-print(bool(run_genomescope))
+print(type(run_fastqc))
+print(type(run_genomescope))
 ```
 
 ::: {.content-visible when-meta="run_fastqc"  }
@@ -55,14 +65,20 @@ pprint(multiqc.list_modules())
 
 ```{python}
 #| echo: false
-if bool(run_fastqc):
+
+print(type(run_fastqc))
+if run_fastqc:
+    print(run_fastqc)
     fastqc_counts_plot = multiqc.get_plot("fastqc", "Sequence Counts")
     fastqc_counts_plot.show()
 ```
 
 ```{python}
 #| echo: false
-if bool(run_fastqc):
+
+print(type(run_fastqc))
+if run_fastqc:
+    print(run_fastqc)
     fastqc_seqgc_plot = multiqc.get_plot("fastqc", "Per Sequence GC Content")
     fastqc_seqgc_plot.show()
 ```
@@ -79,7 +95,7 @@ Render Genomescope
 import glob
 import os
 
-if bool(run_genomescope):
+if run_genomescope:
     images = [
         img
         for pattern in ["log_plot", "linear_plot"]
