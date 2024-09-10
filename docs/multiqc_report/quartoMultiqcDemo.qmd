@@ -47,8 +47,8 @@ multiqc.parse_logs(log_path)
 What's running:
 
 ```{python}
-print(type(run_fastqc))
-print(type(run_genomescope))
+print(f"FastQC: {run_fastqc} {type(run_fastqc)}")
+print(f"GenomeScope: {run_genomescope} {type(run_genomescope)}")
 ```
 
 ::: {.content-visible when-meta="run_fastqc"  }
