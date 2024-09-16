@@ -12,6 +12,15 @@ be outputs from anything, e.g. scripts or tools, or other workflow managers).
 
 The Quarto report is generated within a Nextflow process.
 
+The Quarto report also demonstrates using conditional sections. This is
+achieved by copying the `params.yml` as `_quarto.yml` and then using the
+`when-meta`/`unless-meta` attributes. 
+
+> [!WARNING]
+> Hiding sections with `when-meta`/`unless-meta` does not stop the computations
+> from running, and so you should still check the `params` before executing
+> a code cell.
+
 ### Gitpod
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/mahesh-panchal/nextflow-quarto-multiqc-demo)
