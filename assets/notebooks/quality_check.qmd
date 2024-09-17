@@ -1,0 +1,62 @@
+## Quality Check
+
+::: {.content-visible when-meta="debug" }
+
+### Initialisation
+
+```{python}
+#| echo: false
+#| tags: [parameters]
+
+log_path = 'log_files'
+run_fastqc = True
+```
+
+<details>
+<summary>MultiQC Log parse</summary>
+```{python}
+#| output: true
+import multiqc
+from pprint import pprint
+multiqc.reset() # Important for Quarto preview
+# Then load a custom config using multiqc.load_config("multiqc_config_illumina.yml")
+multiqc.parse_logs(log_path)
+```
+</details>
+
+:::
+
+::: {.content-visible when-meta="run_fastqc" }
+
+### FastQC 
+
+```{python}
+# pprint pretty prints the dictionary
+pprint(multiqc.list_plots())
+pprint(multiqc.list_modules())
+```
+
+#### Sequence counts
+
+Do we have enough sequence data?
+```{python}
+#| echo: false
+
+print(type(run_fastqc))
+if run_fastqc:
+    print(run_fastqc)
+    fastqc_counts_plot = multiqc.get_plot("fastqc", "Sequence Counts")
+    fastqc_counts_plot.show()
+```
+
+#### Per GC content
+```{python}
+#| echo: false
+
+print(type(run_fastqc))
+if run_fastqc:
+    print(run_fastqc)
+    fastqc_seqgc_plot = multiqc.get_plot("fastqc", "Per Sequence GC Content")
+    fastqc_seqgc_plot.show()
+```
+:::

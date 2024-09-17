@@ -1,0 +1,13 @@
+## Synopsis
+
+This is an example of how to use MultiQC in a Quarto notebook. MultiQC is a great tool for summarising log files of various tools.
+One drawback though is you already need to be familiar with how to interpret the output of those tools in their context. For example,
+FastQC is a bioinformatic tool that analyses sequence data, and produces PASS/FAIL metrics for various analyses. An underlying 
+assumption is that the sequence data is whole genome sequence data, and therefore has certain properties. FastQC, however, can be used
+on other types of sequence data, with the caveat that not all analyses need to pass or fail. This is confusing for those learning the
+field who have never encountered this. 
+
+This is where a Quarto notebook comes in. By using Multiqc as a Python package, one can narrate to the reader how to interpret plots, and which
+analyses to focus on to answer particular questions. We can also use conditional inclusion to display only relevant sections. In this
+way, we make it easier for newcomers to interpret analysis logs, particularly those using production-level workflows like [nf-core](https://nf-co.re/).
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.

@@ -1,0 +1,11 @@
+project:
+  type: book
+
+book:
+  title: "Workflow Report"
+  author: "Mahesh Binzer-Panchal"
+  chapters:
+    - index.qmd
+    - quality_check.qmd
+    - profile_genome.qmd
+    - versions.qmd

@@ -1,0 +1,5 @@
+## Versions
+
+TODO:
+- Understand best practice for getting versions info here.
+- Explore MultiQC versions scraping.

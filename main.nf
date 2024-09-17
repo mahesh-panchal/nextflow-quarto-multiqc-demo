@@ -1,43 +1,46 @@
-include { FASTQC          } from './modules/nf-core/fastqc/main'
-include { MERYL_COUNT     } from './modules/nf-core/meryl/count/main'
-include { MERYL_UNIONSUM  } from './modules/nf-core/meryl/unionsum/main'
-include { MERYL_HISTOGRAM } from './modules/nf-core/meryl/histogram/main'
-include { GENOMESCOPE2    } from './modules/nf-core/genomescope2/main'
-include { QUARTO_MULTIQC  } from './modules/local/quarto/multiqc/main'
+include { csvRecordToInputTuple } from './functions/utils'
+include { QUALITY_CHECK         } from './subworkflows/local/quality_check/main.nf'
+include { PROFILE_GENOME        } from './subworkflows/local/profile_genome/main.nf'
+
+include { QUARTO_RENDER_PROJECT  } from "$projectDir/modules/local/quarto/render/main"
+include { QUARTO_RENDER_NOTEBOOK } from "$projectDir/modules/local/quarto/render/main"
 
 workflow {
     // Preparation
     ch_input = Channel.fromPath ( params.samplesheet, checkIfExists: true )
         .splitCsv ( header: [ 'id', 'read1', 'read2' ], skip: 1 )
-        .map { entry -> 
-            [ 
-                [ id: entry.id ], 
-                [ 
-                    file( entry.read1, checkIfExists: true ), 
-                    file( entry.read2, checkIfExists: true ) 
-                ] 
-            ] 
-        }
-    log_files = Channel.empty()
+        .map { entry -> csvRecordToInputTuple( entry ) }
+    ch_quarto_metadata = Channel.fromPath( "$projectDir/assets/notebooks/_quarto.yml", checkIfExists: true )
 
     // Analysis
-    if ( params.run_fastqc ) {
-        FASTQC ( ch_input )
-        log_files = log_files.mix( FASTQC.out.zip )
+    if ( params.run_quality_check ) {
+        QUALITY_CHECK (
+            ch_input,
+            ch_quarto_metadata
+        )
     }
-    if ( params.run_genomescope ){
-        MERYL_COUNT ( ch_input, params.kmer_size )
-        MERYL_UNIONSUM ( MERYL_COUNT.out.meryl_db, params.kmer_size )
-        MERYL_HISTOGRAM ( MERYL_UNIONSUM.out.meryl_db, params.kmer_size )
-        GENOMESCOPE2 ( MERYL_HISTOGRAM.out.hist )
-        log_files = log_files.mix( *GENOMESCOPE2.out[0..3] )
+    if ( params.run_profile_genome ) {
+        PROFILE_GENOME (
+            ch_input,
+            ch_quarto_metadata
+        )
     }
 
-    def run_modules = params.keySet().findAll{ it.startsWith('run_') }
-    // Report
-    QUARTO_MULTIQC(
-        file( params.quarto_mqc_report, checkIfExists: true ),
-        log_files.collect{ it[1] },
-        Channel.value(params.subMap(run_modules).collect{ k, v -> "$k: ${v}" }.join('\n')).collectFile(),
+    // // Final report
+    QUARTO_RENDER_PROJECT(
+        files( params.project_directory, type: 'file', checkIfExists: true ),
+        QUALITY_CHECK.out.report_cache.mix(
+            PROFILE_GENOME.out.report_cache
+        ).toList(),
+        QUALITY_CHECK.out.report.mix(
+            PROFILE_GENOME.out.report
+        ).toList()
+    )
+    QUARTO_RENDER_NOTEBOOK(
+        file("$projectDir/assets/notebooks/index.qmd"),
+        QUALITY_CHECK.out.log_files.mix(
+            PROFILE_GENOME.out.log_files
+        ).collect{ meta, file -> file },
+        Channel.fromPath( params.project_directory, type: 'file', checkIfExists: true ).toList().map { list -> list.findAll { !it.name.endsWith('index.qmd') } }
     )
 }

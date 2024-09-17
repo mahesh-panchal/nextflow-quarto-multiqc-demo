@@ -48,3 +48,14 @@ including single images, sets of images are not really supported. Quarto is a fl
 that lets you use most languages to process inputs and lay them out as you want.
 As a result, you can do things like create tabbed panels per sample and then include
 this html as custom content in MultiQC.
+
+## Implementation description
+
+> [!WARNING]
+> Work in progress. I'm still trying to understand best practice for combining profiles,
+> metadata, parameters, and how it might work with MultiQC.
+
+Notebooks that make up a Quarto document can be individually rendered in separate environments.
+Using `execute: { freeze: auto }`, means the cache can be copied between Nextflow processes
+and used in rendering a master document. Sections for inclusion can likely be controlled using
+a `_metadata.yml` file.

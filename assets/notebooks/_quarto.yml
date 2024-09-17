@@ -1,0 +1,6 @@
+format:
+  html:
+    embed-resources: true
+
+execute:
+  freeze: auto
