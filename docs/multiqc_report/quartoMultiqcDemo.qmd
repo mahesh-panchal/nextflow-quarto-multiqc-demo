@@ -67,21 +67,18 @@ pprint(multiqc.list_modules())
 ```{python}
 #| echo: false
 
-print(type(run_fastqc))
-if run_fastqc:
-    print(run_fastqc)
-    fastqc_counts_plot = multiqc.get_plot("fastqc", "Sequence Counts")
-    fastqc_counts_plot.show()
+# Have to use the ternary style syntax for if to make the plot show
+# This doesn't work!
+# if run_fastqc:
+#     multiqc.get_plot("fastqc", "Sequence Counts").show()
+multiqc.get_plot("fastqc", "Sequence Counts").show() if run_fastqc else ""
 ```
 
+### Per sequence GC content
 ```{python}
 #| echo: false
 
-print(type(run_fastqc))
-if run_fastqc:
-    print(run_fastqc)
-    fastqc_seqgc_plot = multiqc.get_plot("fastqc", "Per Sequence GC Content")
-    fastqc_seqgc_plot.show()
+multiqc.get_plot("fastqc", "Per Sequence GC Content").show() if run_fastqc else ""
 ```
 :::
 
