@@ -17,6 +17,7 @@ process QUARTO_MULTIQC {
 
     script:
     def args = task.ext.args ?: ''
+    prefix = notebook.baseName
     """
     # Link params to meta data
     ln -s params.yml _quarto.yml
@@ -36,8 +37,11 @@ process QUARTO_MULTIQC {
 
     stub:
     def args = task.ext.args ?: ''
+    prefix = notebook.baseName
     """
     touch ${prefix}.html
+    mkdir multiqc
+    touch multiqc/quarto-multiqc-report.html
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -47,6 +51,7 @@ process QUARTO_MULTIQC {
     """
 
     output:
-    path "*.html"      , emit: report
+    path "${prefix}.html", emit: quarto_report
+    path "*/*report.html", emit: multiqc_report
     path "versions.yml", emit: versions
 }
