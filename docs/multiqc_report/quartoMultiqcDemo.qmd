@@ -92,6 +92,7 @@ Render Genomescope
 #| output: asis
 import glob
 import os
+from markdown_it import MarkdownIt
 
 if run_genomescope:
     images = [
@@ -148,7 +149,22 @@ if run_genomescope:
             tabs.append(f"## {formatted_filename}")
             tabs.append(f"![{formatted_filename}]({image})")
         tabs.append(":::")
-    print("\n\n".join(tabs))
+
+    markdown = "\n\n".join(tabs)
+    print(markdown)
+
+    # TODO Render ::: as div and style
+    module = multiqc.BaseMultiqcModule(
+        name="GenomeScope2",
+        anchor="genomescope_2",
+    )
+    module.add_section(
+        content=MarkdownIt().render(markdown),
+        name="My metrics",
+        anchor="genome_scope_2",
+        description="Genome Scope2 Panel",
+    )
+    multiqc.report.modules.append(module)
 ```
 
 :::
@@ -157,4 +173,11 @@ if run_genomescope:
 
 ```{python}
 print(multiqc.__version__)
+
+multiqc.write_report(
+    force=True,
+    output_dir="multiqc",
+    title="Nextflow Quarto MultiQC Demo Report",
+    filename="quarto-multiqc-report.html",
+)
 ```
