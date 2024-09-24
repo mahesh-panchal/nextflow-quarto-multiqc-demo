@@ -148,7 +148,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/mdurl-0.1.2-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/mistune-3.0.2-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/multidict-6.0.5-py312h66e93f0_1.conda
-      - conda: https://conda.anaconda.org/bioconda/noarch/multiqc-1.24.1-pyhdfd78af_0.tar.bz2
+      - conda: https://conda.anaconda.org/bioconda/noarch/multiqc-1.25-pyhdfd78af_0.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/noarch/nbclient-0.10.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/nbconvert-core-7.16.4-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/nbformat-5.10.4-pyhd8ed1ab_0.conda
@@ -2696,13 +2696,13 @@ packages:
   timestamp: 1725438676022
 - kind: conda
   name: multiqc
-  version: 1.24.1
+  version: '1.25'
   build: pyhdfd78af_0
   subdir: noarch
   noarch: python
-  url: https://conda.anaconda.org/bioconda/noarch/multiqc-1.24.1-pyhdfd78af_0.tar.bz2
-  sha256: 6d012254b3626449264fa1c0b069d93e590aa6e6f6bc41e59a6f54187374a2b3
-  md5: 9d85bb8d72c99ef99bb9806fd879c985
+  url: https://conda.anaconda.org/bioconda/noarch/multiqc-1.25-pyhdfd78af_0.tar.bz2
+  sha256: d84a37626765bcaa13935e7e88f2ad216d04fcd03ca392ec3722b85044f29673
+  md5: 14e19620e3590c4c6d9dfdda29f00c9c
   depends:
   - click
   - coloredlogs
@@ -2727,8 +2727,8 @@ packages:
   - typeguard
   license: GPL-3.0-or-later
   license_family: GPL3
-  size: 3732919
-  timestamp: 1724241587547
+  size: 3729096
+  timestamp: 1726565434717
 - kind: conda
   name: nbclient
   version: 0.10.0
