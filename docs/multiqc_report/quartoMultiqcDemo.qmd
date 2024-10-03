@@ -39,9 +39,7 @@ run_busco = True
 #| output: true
 import multiqc
 from pprint import pprint
-
-import plotly.io as pio
-pio.renderers.default = "notebook_connected"
+from IPython.core.display import display
 
 multiqc.reset() # Important for Quarto preview
 # Then load a custom config using multiqc.load_config("multiqc_config_illumina.yml")
@@ -72,19 +70,16 @@ pprint(multiqc.list_modules())
 
 ```{python}
 #| echo: false
-
-# Have to use the ternary style syntax for if to make the plot show
-# This doesn't work!
-# if run_fastqc:
-#     multiqc.get_plot("fastqc", "Sequence Counts").show()
-multiqc.get_plot("fastqc", "Sequence Counts").show() if run_fastqc else ""
+if run_fastqc:
+    display(multiqc.get_plot("fastqc", "Sequence Counts").show())
 ```
 
 ### Per sequence GC content
 ```{python}
 #| echo: false
 
-multiqc.get_plot("fastqc", "Per Sequence GC Content").show() if run_fastqc else ""
+if run_fastqc:
+    display(multiqc.get_plot("fastqc", "Per Sequence GC Content").show())
 ```
 :::
 
@@ -180,10 +175,10 @@ if run_genomescope:
 ## Busco
 
 ```{python}
+#| echo: false
 if run_busco:
     for lineage in multiqc.list_plots()["busco"]:
-        print(f"{lineage}")
-        print(multiqc.get_plot("busco", f"{lineage}").show())
+        display(multiqc.get_plot("busco", f"{lineage}").show())
 ```
 
 :::
