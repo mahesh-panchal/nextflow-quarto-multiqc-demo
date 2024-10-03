@@ -29,14 +29,20 @@ Quarto enables you to weave together content and executable code into a finished
 log_path = 'log_files'
 run_fastqc = True
 run_genomescope = True
+run_busco = True
 ```
 
 <details>
 <summary>MultiQC Log parse</summary>
+
 ```{python}
 #| output: true
 import multiqc
 from pprint import pprint
+
+import plotly.io as pio
+pio.renderers.default = "notebook_connected"
+
 multiqc.reset() # Important for Quarto preview
 # Then load a custom config using multiqc.load_config("multiqc_config_illumina.yml")
 # The path appears to be relative to the current notebook location.
@@ -169,11 +175,22 @@ if run_genomescope:
 
 :::
 
+::: {.content-visible when-meta="run_busco" }
+
+## Busco
+
+```{python}
+if run_busco:
+    for lineage in multiqc.list_plots()["busco"]:
+        print(f"{lineage}")
+        print(multiqc.get_plot("busco", f"{lineage}").show())
+```
+
+:::
+
 ## Versions
 
 ```{python}
-print(multiqc.__version__)
-
 multiqc.write_report(
     force=True,
     output_dir="multiqc",

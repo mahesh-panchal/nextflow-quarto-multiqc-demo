@@ -4,6 +4,7 @@ include { MERYL_UNIONSUM  } from './modules/nf-core/meryl/unionsum/main'
 include { MERYL_HISTOGRAM } from './modules/nf-core/meryl/histogram/main'
 include { GENOMESCOPE2    } from './modules/nf-core/genomescope2/main'
 include { QUARTO_MULTIQC  } from './modules/local/quarto/multiqc/main'
+include { BUSCO_BUSCO     } from './modules/nf-core/busco/busco/main'
 
 workflow {
     // Preparation
@@ -31,6 +32,19 @@ workflow {
         MERYL_HISTOGRAM ( MERYL_UNIONSUM.out.meryl_db, params.kmer_size )
         GENOMESCOPE2 ( MERYL_HISTOGRAM.out.hist )
         log_files = log_files.mix( *GENOMESCOPE2.out[0..3] )
+    }
+
+    if( params.run_busco ) {
+        ch_in_busco = Channel.fromPath(params.genome, checkIfExists: true)
+            .map { genome -> tuple( [id: genome.baseName], genome ) }
+            .combine( Channel.of('bacteria_odb10', 'archaea_odb10') )
+            .multiMap { meta, genome, lineage ->
+                genome: tuple(meta, genome)
+                mode: 'genome'
+                lineage: lineage
+            }
+        BUSCO_BUSCO( ch_in_busco, [], [] )
+        log_files = log_files.mix( BUSCO_BUSCO.out.short_summaries_txt )
     }
 
     def run_modules = params.keySet().findAll{ it.startsWith('run_') }
