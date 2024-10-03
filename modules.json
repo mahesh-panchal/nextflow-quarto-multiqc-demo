@@ -1,47 +1,42 @@
 {
-    "name": "",
-    "homePage": "",
-    "repos": {
-        "https://github.com/nf-core/modules.git": {
-            "modules": {
-                "nf-core": {
-                    "fastqc": {
-                        "branch": "master",
-                        "git_sha": "b49b8992e5271ce427f3a7cdb29628fc58400eb5",
-                        "installed_by": [
-                            "modules"
-                        ]
-                    },
-                    "genomescope2": {
-                        "branch": "master",
-                        "git_sha": "c95215baf20e6d8cf2ae0e8411d03c5d9ef21d4a",
-                        "installed_by": [
-                            "modules"
-                        ]
-                    },
-                    "meryl/count": {
-                        "branch": "master",
-                        "git_sha": "2910aa889fd3497727d87854148a0e0aa1105da3",
-                        "installed_by": [
-                            "modules"
-                        ]
-                    },
-                    "meryl/histogram": {
-                        "branch": "master",
-                        "git_sha": "1c72d95476a2edf92ee4f08dc4321b3c50cd3c13",
-                        "installed_by": [
-                            "modules"
-                        ]
-                    },
-                    "meryl/unionsum": {
-                        "branch": "master",
-                        "git_sha": "1c72d95476a2edf92ee4f08dc4321b3c50cd3c13",
-                        "installed_by": [
-                            "modules"
-                        ]
-                    }
-                }
-            }
+  "name": "",
+  "homePage": "",
+  "repos": {
+    "https://github.com/nf-core/modules.git": {
+      "modules": {
+        "nf-core": {
+          "busco/busco": {
+            "branch": "master",
+            "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+            "installed_by": ["modules"]
+          },
+          "fastqc": {
+            "branch": "master",
+            "git_sha": "b49b8992e5271ce427f3a7cdb29628fc58400eb5",
+            "installed_by": ["modules"]
+          },
+          "genomescope2": {
+            "branch": "master",
+            "git_sha": "c95215baf20e6d8cf2ae0e8411d03c5d9ef21d4a",
+            "installed_by": ["modules"]
+          },
+          "meryl/count": {
+            "branch": "master",
+            "git_sha": "2910aa889fd3497727d87854148a0e0aa1105da3",
+            "installed_by": ["modules"]
+          },
+          "meryl/histogram": {
+            "branch": "master",
+            "git_sha": "1c72d95476a2edf92ee4f08dc4321b3c50cd3c13",
+            "installed_by": ["modules"]
+          },
+          "meryl/unionsum": {
+            "branch": "master",
+            "git_sha": "1c72d95476a2edf92ee4f08dc4321b3c50cd3c13",
+            "installed_by": ["modules"]
+          }
         }
+      }
     }
+  }
 }
