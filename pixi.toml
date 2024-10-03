@@ -3,7 +3,7 @@ authors = ["Mahesh Binzer-Panchal <mahesh.binzer-panchal@nbis.se>"]
 channels = ["conda-forge", "bioconda"]
 description = "Add a short description here"
 name = "nextflow-quarto-multiqc-demo"
-platforms = ["linux-64"]
+platforms = ["linux-64", "osx-64", "osx-arm64"]
 version = "0.1.0"
 
 [tasks]
