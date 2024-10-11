@@ -43,6 +43,7 @@ from IPython.core.display import display
 
 multiqc.reset() # Important for Quarto preview
 # Then load a custom config using multiqc.load_config("multiqc_config_illumina.yml")
+multiqc.load_config("multiqc_config.yml")
 # The path appears to be relative to the current notebook location.
 multiqc.parse_logs(log_path)
 ```
@@ -64,6 +65,46 @@ print(f"GenomeScope: {run_genomescope} {type(run_genomescope)}")
 # pprint pretty prints the dictionary
 pprint(multiqc.list_plots())
 pprint(multiqc.list_modules())
+```
+
+```{python}
+multiqc.write_report(
+    force=True,
+    output_dir="multiqc",
+    title="Nextflow Quarto MultiQC Demo Report",
+    filename="quarto-multiqc-report.html",
+)
+```
+
+
+```{python}
+#| output: asis
+# from bs4 import BeautifulSoup
+# with open('multiqc/quarto-multiqc-report.html', 'r', encoding='utf-8') as file:
+#     html_content = file.read()
+
+# soup = BeautifulSoup(html_content, 'html.parser')
+
+# # Find all style content
+# script_sections = soup.find_all('script')
+
+# # Print all style content
+# for script in script_sections:
+#     print(script.prettify())
+
+# # Find all style content
+# style_sections = soup.find_all('style')
+
+# # Print all style content
+# for style in style_sections:
+#     print(style.prettify())
+```
+```{python}
+#| output: asis
+# print(soup.find(id="mqc_violintable_wrapper_input_samplesheet").prettify())
+# print(soup.find(id="mqc-module-section-samplesheet").prettify())
+if run_fastqc:
+    display(multiqc.get_plot("samplesheet", "samplesheet-section").show().rename(columns={'': 'ToL ID'}))
 ```
 
 ### Sequence counts
@@ -185,11 +226,3 @@ if run_busco:
 
 ## Versions
 
-```{python}
-multiqc.write_report(
-    force=True,
-    output_dir="multiqc",
-    title="Nextflow Quarto MultiQC Demo Report",
-    filename="quarto-multiqc-report.html",
-)
-```

@@ -11,6 +11,7 @@ process QUARTO_MULTIQC {
     path notebook
     path log_files, stageAs: 'log_files/*'
     path 'params.yml'
+    path 'multiqc_config.yml'
 
     when:
     task.ext.when == null || task.ext.when

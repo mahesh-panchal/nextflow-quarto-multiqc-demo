@@ -20,6 +20,10 @@ workflow {
             ] 
         }
     log_files = Channel.empty()
+    log_files = log_files.mix(
+        Channel.fromPath( "$projectDir/assets/samplesheet.csv", checkIfExists: true )
+            .map { fn -> [[ id: fn.baseName ], fn ] }
+    )
 
     // Analysis
     if ( params.run_fastqc ) {
@@ -53,5 +57,6 @@ workflow {
         file( params.quarto_mqc_report, checkIfExists: true ),
         log_files.collect{ it[1] },
         Channel.value(params.subMap(run_modules).collect{ k, v -> "$k: ${v}" }.join('\n')).collectFile(),
+        file( params.multiqc_config, checkIfExists: true ),
     )
 }

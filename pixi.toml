@@ -7,7 +7,7 @@ platforms = ["linux-64", "osx-64", "osx-arm64"]
 version = "0.1.0"
 
 [tasks]
-nextflow = {cmd = "nextflow run $SCRIPT -resume", env = { SCRIPT = "main.nf" }}
+nf = {cmd = "nextflow run $SCRIPT -resume", env = { SCRIPT = "main.nf" }}
 
 [dependencies]
 quarto = ">=1.5.55,<2"

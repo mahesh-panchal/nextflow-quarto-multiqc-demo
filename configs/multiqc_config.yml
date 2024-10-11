@@ -1,0 +1,15 @@
+title: "Quarto MultiQC Demo"
+intro_text: |
+  A demonstration using MultiQC in Quarto.
+
+custom_data:
+  samplesheet:
+    file_format: "csv"
+    section_name: "Samplesheet"
+    description: "A list of samples analysed"
+    plot_type: "table"
+    pconfig:
+      id: 'input_samplesheet'
+sp: # Search pattern
+  samplesheet:
+    fn: "samplesheet.csv"
